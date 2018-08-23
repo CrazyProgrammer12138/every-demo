@@ -1,0 +1,39 @@
+body{
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+}
+/* 定义容器 */
+.pi{
+    width: 30em;
+    height: 30em;
+    font-size: 12px;
+}
+/* 3 * 3 的网格 */
+.pi{
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-gap: 0.2em;
+}
+.pi span{
+    --c: hsl(calc(var(--d) * 360 / 10), 40%, 40%);
+    color: var(--c);
+    font-size: 1.3em;
+    background-color: var(--c);
+    font-family: sans-serif;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+/* 在dom中定义css变量，变量值等于该元素代表的数字 style="--d: 3" */
+.pi span.show,
+.pi span:hover{
+    color: black;
+    background-color: white;
+    box-shadow: 0 0 1em yellow;
+}
