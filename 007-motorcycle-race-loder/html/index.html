@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>赛车-loder</title>
+    <style>
+        /* 居中显示 */
+        body{
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #333;
+        }
+        /* 定义容器尺寸和车颜色 */
+        .loader{
+            width: 11.7em;
+            height: 4.2em;
+            color: lightcyan;
+            position: relative;
+        }
+        /* 画底盘 */
+        .car{
+            width: inherit;
+            height: 2em;
+            position: absolute;
+            top: 1.5em;
+            background-color: currentColor;
+            border-radius: 0 5em 1em 0 / 0 4em 1em 0;
+        }
+        /* 伪劣画车尾 */
+        .car::before{
+            content: '';
+            width: 0;
+            height: 0;
+            position: absolute;
+            top: -0.5em;
+            left: 0;
+            border: 0.6em solid transparent;
+            border-left-width: 0;
+            border-right-color: currentColor;
+            transform-origin: left;
+            transform: rotate(-45deg);
+        }
+        /* 画车身 */
+        .body{
+            width: 7.5em;
+            height: 3.5em;
+            box-sizing: border-box;
+            border: 0.4em solid;
+            border-radius: 3em 4.5em 0 0 / 3em 4em 0 0;
+            position: absolute;
+            top: -1.5em;
+            left: 1.2em;
+        }
+        /* 用伪劣画车窗 */
+        .body::before{
+            content: '';
+            position: absolute;
+            width: 3.5em;
+            height: inherit;
+            background-color: currentColor;
+            border-top-left-radius: inherit;
+            left: -0.4em;
+            top: -0.4em;
+        }
+        /* 画车轮 */
+        .wheels::before,
+        .wheels::after{
+            content: '';
+            position: absolute;
+            box-sizing: border-box;
+            width: 2.6em;
+            height: 2.6em;
+            border-radius: 50%;
+            background-color: #333333;
+            bottom: -1em;
+        }
+        /*  画轮廓*/
+        .wheels::before,
+        .wheels::after{
+            border: 0.3em solid #333333;
+            background-image:
+                    linear-gradient(
+                        135deg,
+                        transparent 45%,
+                        currentColor 46%, currentColor 54%,
+                        transparent 55%
+                    ),
+                    linear-gradient(
+                        90deg,
+                        transparent 45%,
+                        currentColor 46%, currentColor 54%,
+                        transparent 55%
+                    ),
+                    linear-gradient(
+                        45deg,
+                        transparent 45%,
+                        currentColor 46%, currentColor 54%,
+                        transparent 55%
+                    ),
+                    linear-gradient(
+                        0deg,
+                        transparent 45%,
+                        currentColor 46%, currentColor 54%,
+                        transparent 55%
+                    ),
+                    radial-gradient(
+                        currentColor 29%,
+                        transparent 30%, transparent 50%,
+                        currentColor 51%
+                    );
+        }
+        .wheels::before{
+            left: 1.2em;
+        }
+        .wheels::after{
+            right: 0.8em;
+        }
+        /* 制作动效 */
+        .strikes{
+            position: absolute;
+            width: 1em;
+            height: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .strikes span{
+            height: 0.1em;
+            background-color: lightcyan;
+        }
+        /* 增加风影飘动画效果, 定义css变量，设置动画延时 */
+        .strikes span{
+            animation: drift 0.2s linear infinite;
+            animation-delay: calc((var(--n) - 1) * 0.05s);
+        }
+        @keyframes drift {
+            from {
+                transform: translate(3.5em);
+            }
+            to {
+                transform: translate(-8em);
+                filter: opacity(0);
+            }
+        }
+        .strikes span:nth-child(1){
+            --n: 1;
+         }
+        .strikes span:nth-child(2){
+            --n: 2;
+        }
+        .strikes span:nth-child(3){
+            --n: 3;
+        }
+        .strikes span:nth-child(4){
+            --n: 4;
+        }
+        .strikes span:nth-child(5){
+            --n: 5;
+        }
+        /* 轮子旋转效果 */
+        .wheels::before,
+        .wheels::after{
+            animation: rotaing 0.5s linear infinite;
+        }
+        @keyframes rotaing {
+            to {
+                transform: rotate(1turn);
+            }
+        }
+        /* 车子颠簸效果 */
+        .car{
+            animation: run 0.25s linear infinite;
+        }
+        @keyframes run {
+            0%{
+                transform: translate(0.2em, 0.1em) rotate(0deg);
+            }
+            20%{
+                transform: translate(0.1em, 0.2em) rotate(1deg);
+            }
+            40%{
+                transform: translate(0.1em, -0.1em) rotate(-1deg);
+            }
+            60%{
+                transform: translate(-0.1em, 0.2em) rotate(0deg);
+            }
+            80%{
+                transform: translate(-0.1em, 0.1em) rotate(1deg);
+            }
+            100%{
+                transform: translate(0.2em, 0.1em) rotate(-1deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <figure class="loader">
+        <div class="car">
+            <span class="body"></span>
+            <span class="wheels"></span>
+        </div>
+        <div class="strikes">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </figure>
+</body>
+</html>
