@@ -1,0 +1,98 @@
+body{
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: gainsboro;
+}
+/* 定义容器尺寸，并设置元素整体布局 */
+.loader{
+    width: 4.3em;
+    height: 9.8em;
+    font-size: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+/* 画两个方 */
+.top,.bottom{
+    width: 3.5em;
+    height: 3.5em;
+    border-style: solid;
+    border-color: saddlebrown;
+}
+/* 通过边框、圆角和旋转属性，把2个方框变成沙漏形状 */
+.top,.bottom {
+    border-width: 0.2em 0.2em 0.6em 0.6em;
+    border-radius: 50% 100% 50% 30%;
+}
+.top{
+    transform: rotate(-45deg);
+}
+.bottom{
+    transform: rotate(135deg);
+}
+/* 用伪劣画沙子，上部分沙子的顶部是大圆弧，下部的沙子的顶部是小圆弧 */
+.top::before,.bottom::before{
+    content: '';
+    width: inherit;
+    height: inherit;
+    position: absolute;
+    background-color: deepskyblue;
+    animation: 2s linear infinite;
+}
+.top::before{
+    border-radius: 0 100% 0 0;
+    animation-name: drop-sand;
+}
+.bottom::before{
+    border-radius: 0 0 0 35%;
+    animation-name: fill-sand;
+    transform: translate(2.5em, -2.5em);
+}
+/* 增加沙子上下部分效果 */
+@keyframes drop-sand{
+    to {
+        transform: translate(-2.5em, 2.5em)
+    }
+}
+@keyframes fill-sand{
+    to{
+        transform: translate(0, 0);
+    }
+}
+/* 隐藏沙漏上下部分容器外的部分， 此时上面2个动画的叠加效果是沙子从上半部分漏下，慢慢在下半部分堆积 */
+.top, .bottom{
+    overflow: hidden;
+}
+/* 用外层容器的伪劣制作一个窄长条，模拟流动的沙子 */
+.loader::after{
+    content: '';
+    position: absolute;
+    width: 0.2em;
+    height: 4.8em;
+    background-color: deepskyblue;
+    top: 1em;
+    animation: flow 2s linear infinite;
+}
+/* 增加沙子流动效果 */
+@keyframes flow{
+    10%, 90%{
+        transform: translateY(3.2em);
+    }
+}
+/* 最后增加沙漏反转 */
+.loader{
+    animation: rotating 2s linear infinite;
+}
+@keyframes rotating{
+    0%, 90%{
+        transform: rotate(0);
+    }
+    100%{
+        transform: rotate(0.5turn);
+    }
+}
