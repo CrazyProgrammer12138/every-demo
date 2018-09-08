@@ -1,0 +1,79 @@
+body{
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: lightyellow;
+}
+/* 隐藏列表引号符号 */
+nav ul{
+    padding: 0;
+    list-style-type: none;
+}
+nav li {
+    width: 8em;
+    height: 2em;
+    font-size: 25px;
+}
+/* 设置文字样式 */
+nav li{
+    font-size: 25px;
+    text-align: center;
+    line-height: 2em;
+    font-family: sans-serif;
+    text-transform: capitalize;
+    position: relative;
+}
+nav li::before,
+nav li::after{
+    content: '';
+    position: absolute;
+    width: 0.6em;
+    height: 0.6em;
+    background-color: gainsboro;
+    border-radius: 50%;
+}
+/* 把小球定位再左右两端 */
+nav li::before{
+    top: calc(50% - 0.6em / 2);
+    left: 0;
+}
+nav li::after{
+    top: calc(50% - 0.6em / 2);
+    right: 0;
+}
+/* 接下来设置按钮悬停效果 */
+/* 当鼠标悬停在按钮上时，让小球变为与容器大小相等得矩形 */
+nav li:hover::before,
+nav li:hover::after{
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+}
+nav li:hover::before{
+    z-index: -1;
+    top: 0;
+}
+nav li:hover::after{
+    z-index: -2;
+    bottom: -0.4em;
+    right: -0.4em;
+    filter: brightness(0.8);
+}
+/* 设置悬停颜色，伪元素得矩形背景变为蓝色，文字变为白色 */
+nav li:hover{
+    color: white;
+}
+nav li:hover::before,
+nav li:hover::after{
+    background-color: dodgerblue;
+}
+/* 设置缓动时间，其中微元素得缓动得时间函数用拟人得动画效果 */
+nav li{
+    transition: 0.5s;
+}
+nav li::before,
+nav li::after{
+    transition: 0.5s cubic-bezier(0.5, -0.5, 0.25, 1.5);
+}
